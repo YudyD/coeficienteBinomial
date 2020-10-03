@@ -25,11 +25,30 @@ public class CoeficienteBinomial {
     }
     
     private static int cb(int n, int m){
-        if(n == m || m == 0){
+        int i,j;
+        int[][] tabla = new int[n+1][n+1];
+        if (m == 0 || m == n) {
             return 1;
         }else{
-            return cb(n-1,m)+cb(n-1, m-1);
+            for (i=0; i <= n; i++) {
+                tabla[i][0] = 1;
+            }
+            for (i=1; i <= n; i++) {
+                tabla[i][1] = i;
+            }
+            for (i=2; i <= m; i++) {
+                tabla[i][i] = 1;
+            }
+            for (i=3; i <= n; i++) {
+                for (j=2; j < n; j++) {
+                    if (j <= m){
+                        tabla[i][j] = tabla[i-1][j-1] + tabla[i-1][j];
+                    }
+                }
+            }
         }
+        
+        return tabla[num1][num2];
     }
     
     
